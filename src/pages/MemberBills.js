@@ -25,26 +25,56 @@ const MemberBills = () => {
     fetchBills();
   }, [user]);
 
-  const handlePayNow = async (billId) => {
+  const handlePayNow = async (billId, amount) => {
     try {
-      // Update the bill status to PAID in backend
-      await axios.put(`http://localhost:8888/api/bills/${billId}`, {
-        status: "PAID",
-        paymentMethod: "ONLINE",
-        paymentDate: new Date().toISOString(),
+      // Step 1: Create order via backend
+      const orderRes = await axios.post("http://localhost:8888/api/payments/create-order", {
+        amount: amount * 100, // in paise
       });
 
-      // Update UI
-      setBills((prev) =>
-        prev.map((bill) =>
-          bill._id === billId ? { ...bill, status: "PAID" } : bill
-        )
-      );
+      const { orderId } = orderRes.data;
 
-      alert("Payment recorded successfully!");
+      // Step 2: Configure Razorpay options
+      const options = {
+        key: "rzp_test_XXXXXXXXXXXXXXXX", // Your Razorpay test key
+        amount: amount * 100,
+        currency: "INR",
+        name: "HarmonyStay",
+        description: "Monthly Maintenance Payment",
+        order_id: orderId,
+        handler: async function (response) {
+          // Payment successful, update bill in backend
+          await axios.put(`http://localhost:8888/api/bills/${billId}`, {
+            status: "PAID",
+            paymentMethod: "ONLINE",
+            paymentDate: new Date().toISOString(),
+            transactionId: response.razorpay_payment_id,
+          });
+
+          // Update UI
+          setBills((prev) =>
+            prev.map((bill) =>
+              bill.id === billId || bill._id === billId
+                ? { ...bill, status: "PAID" }
+                : bill
+            )
+          );
+
+          alert("Payment successful!");
+        },
+        prefill: {
+          name: user.firstName,
+          email: user.email,
+          contact: user.phone || "9999999999",
+        },
+        theme: { color: "#197de2" },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
-      console.error("Error updating payment:", err);
-      alert("Failed to record payment. Try again.");
+      console.error("Payment error:", err);
+      alert("Payment failed. Try again.");
     }
   };
 
@@ -91,7 +121,9 @@ const MemberBills = () => {
                   {bill.status === "UNPAID" || bill.status === "PENDING" ? (
                     <button
                       className="pay-btn"
-                      onClick={() => handlePayNow(bill.id || bill._id)}
+                      onClick={() =>
+                        handlePayNow(bill.id || bill._id, bill.amount)
+                      }
                     >
                       Pay Now
                     </button>
