@@ -1,0 +1,186 @@
+
+.admin-dashboard {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #f8f9fa;
+  font-family: "Inter", "Poppins", sans-serif;
+  color: #333;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.sidebar-header {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.sidebar-header h2 {
+  color: #444;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.menu-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.9rem 1.5rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #555;
+  transition: all 0.25s ease-in-out;
+  border-left: 3px solid transparent;
+  font-weight: 400;
+}
+
+.menu-list li:hover {
+  background-color: #f1f1f1;
+}
+
+.menu-list li.active {
+  background-color: #f6f6f6;
+  color: #111;
+  border-left: 3px solid #3498db;
+  font-weight: 500;
+}
+
+.logout-btn-sidebar {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  margin: 1rem auto;
+  width: 85%;
+  padding: 0.7rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: 0.3s;
+}
+
+.logout-btn-sidebar:hover {
+  background-color: #d0d0d0;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-header {
+  background-color: #f4eded;
+  color: #333;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #982020;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  height: 8.8%;
+}
+
+.main-header h1 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.content-section {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  display: grid;
+  gap: 2rem;
+  
+}
+
+/* Cards */
+.dashboard-card,
+.profile-card {
+  background-color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.dashboard-card:hover,
+.profile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card h2,
+.profile-card h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.dashboard-card ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dashboard-card li {
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Profile Card */
+.profile-card {
+  text-align: center;
+}
+
+.profile-avatar {
+  color: #999;
+  margin-bottom: 1rem;
+}
+
+.profile-card p {
+  margin: 0.3rem 0;
+  color: #555;
+}
+
+/* Buttons inside cards */
+.dashboard-card .btn,
+.profile-card .btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.dashboard-card .btn:hover,
+.profile-card .btn:hover {
+  background-color: #2980b9;
+}

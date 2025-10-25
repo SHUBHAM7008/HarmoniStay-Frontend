@@ -1,0 +1,51 @@
+.admin-bills-container {
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-bills-container h2 {
+  margin-bottom: 1.5rem;
+  color: #111;
+}
+
+.bills-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bills-table th,
+.bills-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.status.paid {
+  color: green;
+  font-weight: 600;
+}
+
+.status.pending {
+  color: red;
+  font-weight: 600;
+}
+
+.pay-btn {
+  background: #197de2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pay-btn:hover {
+  background: #155bb5;
+}
+
+.paid-label {
+  color: #4caf50;
+  font-weight: 600;
+}
