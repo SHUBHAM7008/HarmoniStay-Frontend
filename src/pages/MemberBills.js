@@ -36,7 +36,7 @@ const MemberBills = () => {
 
       // Step 2: Configure Razorpay options
       const options = {
-        key: "rzp_test_XXXXXXXXXXXXXXXX", // Your Razorpay test key
+        key: "rzp_test_RXjylnpmWsTC8v", // Your Razorpay test key
         amount: amount * 100,
         currency: "INR",
         name: "HarmonyStay",
