@@ -8,10 +8,14 @@ import {
   FaSignOutAlt,
   FaHome,
   FaBell,
+  FaCar,
   FaWrench,
 } from "react-icons/fa";
 import "./MemberDashboard.css";
 import MemberBills from "./MemberBills";
+import AdminParking from "./AdminParking";
+import MemberParking from "./MemberParking";
+
 
 const MemberDashboard = () => {
   const { user, logout } = useContext(AuthContext);
@@ -71,11 +75,18 @@ const MemberDashboard = () => {
             <FaWrench /> Maintenance
           </li>
           <li
+            className={activeMenu === "parking" ? "active" : ""}
+            onClick={() => setActiveMenu("parking")}
+          >
+            <FaCar /> Parking
+          </li>
+          <li
             className={activeMenu === "notice" ? "active" : ""}
             onClick={() => setActiveMenu("notice")}
           >
             <FaBell /> Notices
           </li>
+
           <li
             className={activeMenu === "profile" ? "active" : ""}
             onClick={() => setActiveMenu("profile")}
@@ -99,6 +110,8 @@ const MemberDashboard = () => {
               ? "Maintenance Summary"
               : activeMenu === "notice"
               ? "Notices"
+              : activeMenu === "parking"
+              ? "Parking Slots"
               : "Profile Information"}
           </h1>
         </header>
@@ -114,6 +127,11 @@ const MemberDashboard = () => {
           {activeMenu === "maintenance" && (
             <div className="dashboard-card">
               <MemberBills/>
+            </div>
+          )}
+          {activeMenu === "parking" && (
+            <div className="dashboard-card">
+              <MemberParking/>
             </div>
           )}
 

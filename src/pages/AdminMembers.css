@@ -163,3 +163,28 @@
 
 .btn-cyan { background-color: #2a0ab7f1; color: rgb(253, 252, 252); }
 .btn-cyan:hover { background-color: #0069d9; }
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-bar label {
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-bar select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+}
+
+.filter-bar select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.4);
+}
+

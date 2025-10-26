@@ -12,6 +12,7 @@ import {
   FaFileInvoiceDollar,
   FaBell,
   FaWrench,
+  FaCar,
 } from "react-icons/fa";
 import AdminMembers from "./AdminMembers";
 import CreateFlat from "./CreateFlat"; // ✅ Import your Flats component
@@ -19,6 +20,7 @@ import AdminBills from "./AdminBills.js";
 import "./AdminDashboard.css";
 import AssignFlat from "./AssignFlat.js";
 import AssignMonthlyBill from "./AssignMonthlyBill.js";
+import AdminParking from "./AdminParking.js";
 
 const AdminDashboard = () => {
   const { user, logout } = useContext(AuthContext);
@@ -73,6 +75,12 @@ const AdminDashboard = () => {
           >
             <FaFileInvoiceDollar /> Maintenance
           </li>
+           <li
+            className={activeMenu === "parking" ? "active" : ""}
+            onClick={() => setActiveMenu("parking")}
+          >
+            <FaCar /> Parking
+          </li>
           <li
             className={activeMenu === "notice" ? "active" : ""}
             onClick={() => setActiveMenu("notice")}
@@ -104,6 +112,8 @@ const AdminDashboard = () => {
               ? "Flats Management"
               : activeMenu === "maintenance"
               ? "Maintenance Summary"
+              : activeMenu === "parking"
+              ? "Parking Slots"
               : activeMenu === "notice"
               ? "Notices"
               : "Profile Information"}
@@ -123,7 +133,11 @@ const AdminDashboard = () => {
               <AdminMembers /> {/* ✅ Members opens in center */}
             </div>
           )}
-
+          {activeMenu === "parking" && (
+            <div className="dashboard-card">
+              <AdminParking /> {/* ✅ Members opens in center */}
+            </div>
+          )}
           {activeMenu === "flats" && (
             <div className="dashboard-card">
               <CreateFlat /> {/* ✅ Flats form opens here in center */}

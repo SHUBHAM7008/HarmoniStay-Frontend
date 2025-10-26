@@ -6,10 +6,12 @@ import './AdminMembers.css';
 
 export default function AdminMembers() {
   const [members, setMembers] = useState([]);
+  const [filteredMembers, setFilteredMembers] = useState([]);
   const [flats, setFlats] = useState([]);
   const [newMember, setNewMember] = useState({ firstName: '', flatId: '', email: '', phone: '', password: '' });
   const [showAddForm, setShowAddForm] = useState(false);
   const [selectedMemberId, setSelectedMemberId] = useState(null); 
+  const [selectedFlat, setSelectedFlat] = useState('All');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,6 +30,7 @@ export default function AdminMembers() {
         flatNo: m.flatId ? `${m.flatId}` : 'Not Assigned'
       }));
       setMembers(membersWithId);
+      setFilteredMembers(membersWithId);
     } catch (err) {
       console.error('Error loading members:', err);
     }
@@ -44,7 +47,7 @@ export default function AdminMembers() {
   };
 
   const handleAdd = async () => {
-    
+    // your add logic will go here
   };
 
   const handleDelete = async (id) => {
@@ -59,15 +62,38 @@ export default function AdminMembers() {
     setSelectedMemberId(selectedMemberId === id ? null : id);
   };
 
+  // Handle flat filter dropdown change
+  const handleFlatFilter = (e) => {
+    const selected = e.target.value;
+    setSelectedFlat(selected);
+
+    if (selected === 'All') {
+      setFilteredMembers(members);
+    } else {
+      const filtered = members.filter(m => m.flatNo === selected);
+      setFilteredMembers(filtered);
+    }
+  };
+
   return (
     <div className="admin-members-container">
-      <h1>👥 Member Management</h1>
-
+  
       <div className="top-bar">
         <p>Manage all society members here.</p>
         <button className="btn btn-blue" onClick={() => navigate(`/admin/addmember`)}>
           {showAddForm ? 'Close' : '+ Add Member'}
         </button>
+      </div>
+
+      {/* Single Dropdown Filter */}
+      <div className="filter-bar">
+        <label htmlFor="flatFilter">Filter by Flat:</label>
+        <select id="flatFilter" value={selectedFlat} onChange={handleFlatFilter}>
+          <option value="All">All Flats</option>
+          {[...new Set(members.map(m => m.flatNo))].map(flat => (
+            <option key={flat} value={flat}>{flat}</option>
+          ))}
+        </select>
       </div>
 
       <table className="members-table">
@@ -81,7 +107,7 @@ export default function AdminMembers() {
           </tr>
         </thead>
         <tbody>
-          {members.length > 0 ? members.map((m, i) => (
+          {filteredMembers.length > 0 ? filteredMembers.map((m, i) => (
             <React.Fragment key={m.id || i}>
               <tr onClick={() => handleRowClick(m.id)} className="member-row">
                 <td>{i + 1}</td>
@@ -97,7 +123,7 @@ export default function AdminMembers() {
                     <div className="action-buttons">
                       <button className="btn btn-green" onClick={() => alert('Edit functionality pending')}>Edit</button>
                       <button className="btn btn-red" onClick={() => handleDelete(m.id)}>Delete</button>
-                      <button className="btn btn-cyan" onClick={() => navigate(`/admin/member/${m.id}`)}>Details</button>
+                      <button className="btn btn-cyan" onClick={() => navigate(`/admin/member/${m.email}`)}>Details</button>
                     </div>
                   </td>
                 </tr>

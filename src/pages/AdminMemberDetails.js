@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { getMemberById, updateMember } from '../service/memberService';
 import { useParams } from 'react-router-dom';
 import './AdminMemberDetails.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminMemberDetails() {
   const { id } = useParams();
   const [member, setMember] = useState(null);
   const [editing, setEditing] = useState(false);
   const [editData, setEditData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadMember();
@@ -17,6 +19,7 @@ export default function AdminMemberDetails() {
     try {
       const data = await getMemberById(id);
       setMember(data);
+      console.log(data);
       setEditData({
         firstName: data.firstName || '',
         lastName: data.lastName || '',
@@ -137,6 +140,7 @@ export default function AdminMemberDetails() {
 
             <div className="member-actions">
               <button className="btn btn-edit" onClick={() => setEditing(true)}>Edit</button>
+              <button className="btn btn-edit" onClick={() => navigate(-1)}>Back</button>
             </div>
           </div>
         )}
